@@ -29,7 +29,7 @@ class Board(object):
         if player != "X" or player != "O":
             print "Sorry, that isn't a valid player"
             return False
-        if (0<x<4) and (0<y<4) and isinstance( x, int ) and isinstance( y, int ):
+        if self.valid_move(x, y):
             if self.grid[-y][x-1] == "-":
                 self.grid[-y][x-1] = player
                 return True
@@ -40,8 +40,19 @@ class Board(object):
             print "Sorry, that isn't part of the board"
             return False
 
+    @staticmethod
+    def valid_move(x, y):
+        """check if move is on board"""
+        if (0<x<4) and (0<y<4) and isinstance( x, int ) and isinstance( y, int ):
+            return True
+        return False
+
     def is_winner(self, player):
         """checking if player has won"""
+        pass
+
+    def is_tied(self):
+        """check if game is tied"""
         pass
 
     def is_full(self):
@@ -52,6 +63,25 @@ class Board(object):
                     return False
         return True
 
-class Computer(object):
-    """computer to make moves on board"""
+class Player(object):
+    """player class"""
+    def __init__(self, token):
+        self.token = token
+        self.human = True
+
+    def get_token(self):
+        return self.token
+
+    def get_human(self):
+        return self.human
+
+    def get_move(self):
+        move = raw_input("What move have you chosen? format: x, y").rstrip()
+        both = move.split(",")
+        x = int(both[0])
+        y = int(both[1])
+        
+
+class Computer(Player):
+    """computer version of player"""
     pass
